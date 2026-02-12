@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Special Surprise</title>
+
+<style>
+/* ================= GENERAL ================= */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:Arial, sans-serif;
+  overflow:hidden;
+  background:black;
+  color:white;
+}
+
+/* ================= SCREEN CONTROL ================= */
+.screen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  transition:1s;
+}
+
+.hidden{opacity:0;pointer-events:none;}
+
+/* ================= SCREEN 1 ================= */
+#screen1{
+  background:black;
+}
+
+button{
+  padding:15px 40px;
+  font-size:20px;
+  margin-top:30px;
+  cursor:pointer;
+  border:none;
+  background:white;
+  color:black;
+  border-radius:30px;
+}
+
+/* ================= SCREEN 2 (FLOWERS) ================= */
+#screen2{
+  background:radial-gradient(circle at bottom, #021027, black);
+  overflow:hidden;
+}
+
+/* Simple flower animation */
+.flowers{
+  position:relative;
+  width:300px;
+  height:300px;
+}
+
+.petal{
+  position:absolute;
+  width:80px;
+  height:120px;
+  background:pink;
+  border-radius:50%;
+  top:90px;
+  left:110px;
+  transform-origin:40px 100px;
+  animation:bloom 3s ease forwards;
+}
+
+@keyframes bloom{
+  from{transform:scale(0);}
+  to{transform:scale(1);}
+}
+
+.center{
+  position:absolute;
+  width:80px;
+  height:80px;
+  background:yellow;
+  border-radius:50%;
+  top:130px;
+  left:110px;
+  animation:fadeIn 3s ease forwards;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
+}
+
+/* ================= SCREEN 3 ================= */
+#screen3{
+  background:black;
+  overflow:hidden;
+}
+
+.gallery{
+  position:absolute;
+  bottom:-100%;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  animation:slideUp 10s linear forwards;
+}
+
+.gallery img{
+  width:200px;
+  margin:10px 0;
+  border-radius:10px;
+}
+
+@keyframes slideUp{
+  to{bottom:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SCREEN 1 -->
+<div id="screen1" class="screen">
+  <h1>Are you ready?</h1>
+  <button onclick="startExperience()">YES</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="screen2" class="screen hidden">
+  <div class="flowers">
+    <div class="petal" style="transform:rotate(0deg)"></div>
+    <div class="petal" style="transform:rotate(60deg)"></div>
+    <div class="petal" style="transform:rotate(120deg)"></div>
+    <div class="petal" style="transform:rotate(180deg)"></div>
+    <div class="petal" style="transform:rotate(240deg)"></div>
+    <div class="petal" style="transform:rotate(300deg)"></div>
+    <div class="center"></div>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="screen hidden">
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<script>
+
+/* Load 30 images automatically */
+const gallery = document.getElementById("gallery");
+for(let i=1;i<=30;i++){
+  const img = document.createElement("img");
+  img.src = i + ".jpg";
+  gallery.appendChild(img);
+}
+
+function startExperience(){
+  document.getElementById("screen1").classList.add("hidden");
+  document.getElementById("screen2").classList.remove("hidden");
+
+  // After 6 seconds go to screen 3
+  setTimeout(()=>{
+    document.getElementById("screen2").classList.add("hidden");
+    document.getElementById("screen3").classList.remove("hidden");
+  },6000);
+}
+
+</script>
+
+</body>
+</html>
